@@ -1,5 +1,5 @@
 import { ApiError, Provider, Session, User } from "@supabase/supabase-js";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { supabaseClient } from "./Supabase";
 
 interface AuthContextValue {
@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
 
     setUser(session?.user ?? null);
     setLoading(false);
-    
+
     const { data: listener } = supabaseClient.auth.onAuthStateChange(
       async (event, session) => {
         setUser(session?.user ?? null);
