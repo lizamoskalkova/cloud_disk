@@ -1,6 +1,6 @@
 import { ApiError, Provider, Session, User } from "@supabase/supabase-js";
-import React, { useContext, useState, useEffect } from "react";
-import { supabaseClient } from "./Supabase";
+import React, { useState, useEffect } from "react";
+import { supabaseClient } from "../api/Supabase";
 
 interface AuthContextValue {
   signUp: (data: any) => Promise<{
