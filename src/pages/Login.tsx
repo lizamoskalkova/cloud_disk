@@ -5,7 +5,7 @@ import {
   InputAdornment,
   IconButton,
 } from "@mui/material";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "./Auth";
@@ -53,7 +53,6 @@ export const Login = () => {
       navigate("/");
     }
   }
-
   return (
     <form onSubmit={handleSubmit}>
       <Stack
@@ -91,7 +90,7 @@ export const Login = () => {
                   {values.showPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
-            )
+            ),
           }}
           label="Password"
         />

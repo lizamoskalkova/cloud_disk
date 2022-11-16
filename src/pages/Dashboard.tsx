@@ -1,9 +1,24 @@
 import { Button, Stack } from "@mui/material";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../store";
+import { fetchUsers } from "../store/userSlice";
 import { useAuth } from "./Auth";
 
 export const Dashboard = () => {
   const { user, signOut } = useAuth();
+  const dispatch = useAppDispatch();
+  const { users } = useAppSelector((state) => state.users);
+
+
+  useEffect(() => {
+    dispatch(fetchUsers());
+  }, [dispatch]);
+  console.log('ise'+users);
+  useEffect(() => {
+    console.log('ffff'+ users[0].email);
+  }, [dispatch, users]);
+
 
   const navigate = useNavigate();
 
