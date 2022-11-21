@@ -5,7 +5,7 @@ import {
   InputAdornment,
   IconButton,
 } from "@mui/material";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "./Auth";
@@ -53,9 +53,14 @@ export const Login = () => {
       navigate("/");
     }
   }
-
   return (
-    <form onSubmit={handleSubmit}>
+    <Stack
+        sx={{
+          alignItems: "center",
+          mt: 10,
+        }}
+      >
+        Welcome to your Cloud Disk!
       <Stack
         sx={{
           display: "flex",
@@ -91,7 +96,7 @@ export const Login = () => {
                   {values.showPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
-            )
+            ),
           }}
           label="Password"
         />
@@ -102,6 +107,6 @@ export const Login = () => {
           Don't have an account? <Link to="/signup">Sign Up</Link>
         </p>
       </Stack>
-    </form>
+    </Stack>
   );
 };
