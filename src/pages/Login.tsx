@@ -54,7 +54,13 @@ export const Login = () => {
     }
   }
   return (
-    <form onSubmit={handleSubmit}>
+    <Stack
+        sx={{
+          alignItems: "center",
+          mt: 10,
+        }}
+      >
+        Welcome to your Cloud Disk!
       <Stack
         sx={{
           display: "flex",
@@ -101,6 +107,6 @@ export const Login = () => {
           Don't have an account? <Link to="/signup">Sign Up</Link>
         </p>
       </Stack>
-    </form>
+    </Stack>
   );
 };

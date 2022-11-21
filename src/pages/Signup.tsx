@@ -58,22 +58,29 @@ export const Signup = () => {
   return (
     <Stack
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
         alignItems: "center",
-        spacing: 10,
-        mt: 6,
+        mt: 10,
       }}
     >
-      <TextField
-        inputRef={emailRef}
-        id="outlined-basic"
-        sx={{ mb: 5, width: 230 }}
-        label="Email"
-        variant="outlined"
-      />
-      <TextField
+      Welcome to your Cloud Disk!
+      <Stack
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          spacing: 10,
+          mt: 6,
+        }}
+      >
+        <TextField
+          inputRef={emailRef}
+          id="outlined-basic"
+          sx={{ mb: 5, width: 230 }}
+          label="Email"
+          variant="outlined"
+        />
+        <TextField
           id="outlined-adornment-password"
           type={values.showPassword ? "text" : "password"}
           value={values.password}
@@ -91,16 +98,17 @@ export const Signup = () => {
                   {values.showPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
-            )
+            ),
           }}
           label="Password"
         />
-      <Button onClick={handleSubmit} variant="contained">
-        Sign Up
-      </Button>
-      <p>
-        Already have an account? <Link to="/login">Log In</Link>
-      </p>
+        <Button onClick={handleSubmit} variant="contained">
+          Sign Up
+        </Button>
+        <p>
+          Already have an account? <Link to="/login">Log In</Link>
+        </p>
+      </Stack>
     </Stack>
   );
 };
