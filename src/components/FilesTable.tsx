@@ -1,38 +1,56 @@
 import { Box, Button } from "@mui/material";
 import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
-import { supabaseClient } from "../api/Supabase";
+import { useAppDispatch, useAppSelector } from "../store";
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer as MUITableContainer,
+  TableHead,
+  TableRow,
+
+} from "@mui/material";
 
 export const FilesTable = () => {
-  const rows: GridRowsProp = [
-    { id: 1, col1: "item1", col2: "World" },
-    { id: 2, col1: "item2", col2: "is Awesome" },
-    { id: 3, col1: "item3", col2: "is Amazing" },
-  ];
-  const columns: GridColDef[] = [
-    { field: "col1", headerName: "Name", width: 500 },
-    { field: "col2", headerName: "Date", width: 150 },
-    { field: "col3", headerName: "Size", width: 150 },
-    { field: "col4", headerName: "Link", width: 150 },
-  ];
+  const { fileArray } = useAppSelector((state) => state.files);
 
-  /*const uploadFiles = async (event) => {
-    const { data, error} = await supabaseClient.storage.from("public/files").download("folder/liza.png");
-    console.log(data);
-  }*/
   return (
-    <Box>
-      <DataGrid
-        sx={{
-          borderColor: "rgba(11, 76, 181, 0.88)",
-          ml: 20,
-          mt: 7,
-          width: 950,
-          height: 400,
-          background: "white",
-        }}
-        rows={rows}
-        columns={columns}
-      />
+    <Box sx={{ ml: 15, mt: 5 }}>
+      <MUITableContainer
+        component={Paper}
+        sx={{ maxWidth: 1000, background: "transparent" }}
+      >
+        <Table
+          sx={{
+            minWidth: 700,
+            borderSpacing: "0px 9px ",
+          }}
+          size="small"
+        >
+          <TableHead>
+            <TableRow sx={{ fontStyle: "italic" }}>
+              <TableCell>Name</TableCell>
+              <TableCell>Size</TableCell>
+              <TableCell sx={{ width: "100" }}>Date</TableCell>
+              <TableCell>Link</TableCell>
+              <TableCell />
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {fileArray.map((item) => (
+              <TableRow key={item.id}>
+                <TableCell>{item.name}</TableCell>
+                <TableCell>{item.size}</TableCell>
+                <TableCell>
+                  {item.lastModifiedDate.toString().slice(0, 10)}
+                </TableCell>
+                <TableCell>{item.link}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </MUITableContainer>
     </Box>
   );
 };
