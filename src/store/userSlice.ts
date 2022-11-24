@@ -58,7 +58,7 @@ const usersSlice = createSlice({
       if (payload) {
        payload.forEach((el) => {
          state.users.push({id: el.id, email: el.email})
-         console.log(el.id)
+         ///console.log(el.id)
        })
       };
       })
