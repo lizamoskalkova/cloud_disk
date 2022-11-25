@@ -9,12 +9,18 @@ import {
   TableContainer as MUITableContainer,
   TableHead,
   TableRow,
-
 } from "@mui/material";
+import InsertLinkIcon from "@mui/icons-material/InsertLink";
+import { useState } from "react";
+import { LinkDialog } from "./LinkDialog";
 
 export const FilesTable = () => {
   const { fileArray } = useAppSelector((state) => state.files);
+  const [isOpen, setIsOpen] = useState(false);
 
+  const handleLink = (e) => {
+    setIsOpen(true)
+  };
   return (
     <Box sx={{ ml: 15, mt: 5 }}>
       <MUITableContainer
@@ -45,7 +51,9 @@ export const FilesTable = () => {
                 <TableCell>
                   {item.lastModifiedDate.toString().slice(0, 10)}
                 </TableCell>
-                <TableCell>{item.link}</TableCell>
+                <TableCell>
+                <LinkDialog link={item.link}/>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
