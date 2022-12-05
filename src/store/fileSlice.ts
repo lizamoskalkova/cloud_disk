@@ -63,12 +63,18 @@ const filesSlice = createSlice({
           lastModifiedDate: new Date(),
           type: payload[0].type,
           webkitRelativePath: payload.webkitRelativePath,
-          link: payload[1]
+          link: payload[1],
         },
       ],
     }),
+    deleteFile: (state, {payload}) => {
+      state.fileArray = state.fileArray.filter(
+        (val) => val.id !== payload.id
+      );
+      console.log(payload.id)
+    },
   },
 });
 
 export default filesSlice.reducer;
-export const { addFile } = filesSlice.actions;
+export const { addFile, deleteFile } = filesSlice.actions;
