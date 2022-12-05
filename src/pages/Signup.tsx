@@ -16,13 +16,14 @@ interface State {
 }
 
 export const Signup = () => {
+
   const emailRef = useRef<any>();
   const { signUp } = useAuth();
   const navigate = useNavigate();
   const [values, setValues] = useState<State>({
     password: "",
     showPassword: true,
-  });
+  }); 
 
   const handleClickShowPassword = () => {
     setValues({

@@ -27,29 +27,24 @@ export const Dashboard = () => {
     setFile(event.target.files[0]);
   };
 
-
   useEffect(() => {
     dispatch(uploadFiles(file));
-    if (file !== undefined ) {
-      getLink(file).then((val) => dispatch(addFile([file,val])))
+    if (file !== undefined) {
+      getLink(file).then((val) => dispatch(addFile([file, val])));
     }
-  }, [file]); 
-
+  }, [file]);
 
   useEffect(() => {
     dispatch(fetchUsers());
   }, [dispatch]);
 
-  
-
   const navigate = useNavigate();
-  const downloadFiles = async (event) => {
-    console.log(fileArray);
+ /* const downloadFiles = async (event) => {
     const { data, error } = await supabaseClient.storage
       .from("public/files")
       .download("222.png");
     console.log(data);
-  };
+  };*/
 
   async function handleSignOut() {
     await signOut();
@@ -90,11 +85,7 @@ export const Dashboard = () => {
         Upload File
         <input type="file" onChange={uploadFile} hidden />
       </Button>
-      <FilesTable/>
-      <Button id="outlined" onClick={downloadFiles}>
-        {" "}
-        Download
-      </Button>
+      <FilesTable />
     </Box>
   );
 };

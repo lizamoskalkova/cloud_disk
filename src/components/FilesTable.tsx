@@ -16,11 +16,6 @@ import { LinkDialog } from "./LinkDialog";
 
 export const FilesTable = () => {
   const { fileArray } = useAppSelector((state) => state.files);
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleLink = (e) => {
-    setIsOpen(true)
-  };
   return (
     <Box sx={{ ml: 15, mt: 5 }}>
       <MUITableContainer
@@ -36,7 +31,7 @@ export const FilesTable = () => {
         >
           <TableHead>
             <TableRow sx={{ fontStyle: "italic" }}>
-              <TableCell>Name</TableCell>
+              <TableCell sx={{ width: 200 }}>Name</TableCell>
               <TableCell>Size</TableCell>
               <TableCell sx={{ width: "100" }}>Date</TableCell>
               <TableCell>Link</TableCell>
@@ -52,7 +47,7 @@ export const FilesTable = () => {
                   {item.lastModifiedDate.toString().slice(0, 10)}
                 </TableCell>
                 <TableCell>
-                <LinkDialog link={item.link}/>
+                  <LinkDialog link={item.link} />
                 </TableCell>
               </TableRow>
             ))}
