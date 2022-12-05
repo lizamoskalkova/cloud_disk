@@ -1,6 +1,6 @@
 import { Box, Button } from "@mui/material";
 import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
-import { useAppDispatch, useAppSelector } from "../store";
+import { AppDispatch, useAppDispatch, useAppSelector } from "../store";
 import {
   Paper,
   Table,
@@ -11,11 +11,20 @@ import {
   TableRow,
 } from "@mui/material";
 import InsertLinkIcon from "@mui/icons-material/InsertLink";
-import { useState } from "react";
+import { useReducer, useState } from "react";
 import { LinkDialog } from "./LinkDialog";
+import GetAppIcon from "@material-ui/icons/GetApp";
+import DeleteIcon from "@material-ui/icons/Delete";
+import { deleteFile } from "../store/fileSlice";
 
 export const FilesTable = () => {
   const { fileArray } = useAppSelector((state) => state.files);
+  const dispatch = useAppDispatch();
+
+  const removeFile = (id: string) => {
+    dispatch(deleteFile({ id }));
+  };
+
   return (
     <Box sx={{ ml: 15, mt: 5 }}>
       <MUITableContainer
@@ -35,7 +44,8 @@ export const FilesTable = () => {
               <TableCell>Size</TableCell>
               <TableCell sx={{ width: "100" }}>Date</TableCell>
               <TableCell>Link</TableCell>
-              <TableCell />
+              <TableCell>Download</TableCell>
+              <TableCell>Delete</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -48,6 +58,12 @@ export const FilesTable = () => {
                 </TableCell>
                 <TableCell>
                   <LinkDialog link={item.link} />
+                </TableCell>
+                <TableCell>
+                  <GetAppIcon style={{ color: "#1976d2" }} />
+                </TableCell>
+                <TableCell onClick={() => removeFile(item.id)}>
+                  <DeleteIcon style={{ color: "#1976d2" }} />
                 </TableCell>
               </TableRow>
             ))}
