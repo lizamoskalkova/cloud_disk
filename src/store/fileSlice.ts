@@ -67,11 +67,8 @@ const filesSlice = createSlice({
         },
       ],
     }),
-    deleteFile: (state, {payload}) => {
-      state.fileArray = state.fileArray.filter(
-        (val) => val.id !== payload.id
-      );
-      console.log(payload.id)
+    deleteFile: (state, { payload }) => {
+      state.fileArray = state.fileArray.filter((val) => val.id !== payload.id);
     },
   },
 });
