@@ -24,6 +24,19 @@ export const FilesTable = () => {
     dispatch(deleteFile({ id }));
   };
 
+  const getSize = (size: string) => {
+    const numsize = parseInt(size);
+    if (numsize > 1048576) {
+      const res = (numsize / 1048576).toFixed(2).toString() + " MB";
+      return res;
+    } else if (numsize > 1024) {
+      const res = (numsize / 1024).toFixed(2).toString() + " KB";
+      return res;
+    }
+    const res = numsize.toFixed(2).toString() + " B";
+    return res;
+  };
+
   return (
     <Box sx={{ ml: 15, mt: 5 }}>
       <MUITableContainer
@@ -37,8 +50,16 @@ export const FilesTable = () => {
           }}
           size="small"
         >
+          <colgroup>
+            <col style={{ width: "20%" }} />
+            <col style={{ width: "20%" }} />
+            <col style={{ width: "20%" }} />
+            <col style={{ width: "20%" }} />
+            <col style={{ width: "20%" }} />
+            <col style={{ width: "20%" }} />
+          </colgroup>
           <TableHead>
-            <TableRow sx={{ fontStyle: "italic" }}>
+            <TableRow sx={{ fontWeight: "bold" }}>
               <TableCell sx={{ width: 200 }}>Name</TableCell>
               <TableCell>Size</TableCell>
               <TableCell sx={{ width: "100" }}>Date</TableCell>
@@ -51,7 +72,7 @@ export const FilesTable = () => {
             {fileArray.map((item) => (
               <TableRow key={item.id}>
                 <TableCell>{item.name}</TableCell>
-                <TableCell>{item.size}</TableCell>
+                <TableCell>{getSize(item.size)}</TableCell>
                 <TableCell>
                   {item.lastModifiedDate.toString().slice(0, 10)}
                 </TableCell>
