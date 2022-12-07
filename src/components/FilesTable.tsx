@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button, Link } from "@mui/material";
 import { AppDispatch, useAppDispatch, useAppSelector } from "../store";
 import {
   Paper,
@@ -15,6 +15,7 @@ import { LinkDialog } from "./LinkDialog";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { deleteFile } from "../store/fileSlice";
+import { DownLoadFile } from "./DownLoadFile";
 
 export const FilesTable = () => {
   const { fileArray } = useAppSelector((state) => state.files);
@@ -80,7 +81,7 @@ export const FilesTable = () => {
                   <LinkDialog link={item.link} />
                 </TableCell>
                 <TableCell>
-                  <GetAppIcon style={{ color: "#1976d2" }} />
+               <DownLoadFile item={item}/>
                 </TableCell>
                 <TableCell onClick={() => removeFile(item.id)}>
                   <DeleteIcon style={{ color: "#1976d2" }} />
