@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
 
     setUser(session?.user ?? null);
     setLoading(false);
-    
+
     const { data: listener } = supabaseClient.auth.onAuthStateChange(
       async (event, session) => {
         setUser(session?.user ?? null);
