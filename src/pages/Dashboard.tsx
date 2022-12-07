@@ -53,7 +53,7 @@ export const Dashboard = () => {
   }
 
   return (
-    <Box>
+    <Box >
       <AppBar
         position="static"
         sx={{
