@@ -17,6 +17,19 @@ export const uploadFiles = createAsyncThunk(
   }
 );
 
+export const getFiles = createAsyncThunk(
+  "files/getFiles",
+  async (file: any, { rejectWithValue }) => {
+    try {
+      const data = await supabaseClient.storage.from("files").list();
+      if (data.error) throw console.log("error getting files");
+      return data.data;
+    } catch (e) {
+      throw rejectWithValue(e);
+    }
+  }
+);
+
 export const getLink = async (file: any) => {
   try {
     const { data, error } = supabaseClient.storage
@@ -33,19 +46,20 @@ export const getLink = async (file: any) => {
 interface File {
   id: string;
   name: string;
-  size: string;
+  size?: string;
   lastModifiedDate: Date;
-  type: string;
-  webkitRelativePath: string;
+  type?: string;
   link?: string;
 }
 
 interface IFilesState {
   fileArray: File[];
+  fileFromDB: File[];
 }
 
 const initialState: IFilesState = {
   fileArray: [],
+  fileFromDB: []
 };
 
 const filesSlice = createSlice({
@@ -62,7 +76,6 @@ const filesSlice = createSlice({
           size: payload[0].size,
           lastModifiedDate: new Date(),
           type: payload[0].type,
-          webkitRelativePath: payload.webkitRelativePath,
           link: payload[1],
         },
       ],
@@ -70,6 +83,20 @@ const filesSlice = createSlice({
     deleteFile: (state, { payload }) => {
       state.fileArray = state.fileArray.filter((val) => val.id !== payload.id);
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(getFiles.fulfilled, (state, { payload }) => {
+      if (payload) {
+        payload.forEach((row) => {
+          const { name, id, created_at } = row;
+          state.fileFromDB.push({
+            name: name,
+            id: id,
+            lastModifiedDate: new Date(created_at)
+          });
+        });
+      }
+    });
   },
 });
 

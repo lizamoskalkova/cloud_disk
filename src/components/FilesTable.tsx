@@ -1,5 +1,5 @@
-import { Box, Button, Link } from "@mui/material";
-import { AppDispatch, useAppDispatch, useAppSelector } from "../store";
+import { Box } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "../store";
 import {
   Paper,
   Table,
@@ -9,21 +9,34 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import InsertLinkIcon from "@mui/icons-material/InsertLink";
-import { useReducer, useState } from "react";
+import {  useState } from "react";
 import { LinkDialog } from "./LinkDialog";
-import GetAppIcon from "@material-ui/icons/GetApp";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { deleteFile } from "../store/fileSlice";
 import { DownLoadFile } from "./DownLoadFile";
+import { supabaseClient } from "../api/Supabase";
 
 export const FilesTable = () => {
   const { fileArray } = useAppSelector((state) => state.files);
+  const { fileFromDB } = useAppSelector((state) => state.files);
+
   const dispatch = useAppDispatch();
+  const [Data, setData] = useState<any[]>([]);
 
   const removeFile = (id: string) => {
     dispatch(deleteFile({ id }));
   };
+
+  const files = async () => {
+    const data = await supabaseClient.storage.from("files").list();
+    const farray = data.data;
+    if ( farray !== null) {
+      setData( farray);
+    }
+    console.log(Data)
+    return Data
+  };
+
 
   const getSize = (size: string) => {
     const numsize = parseInt(size);
@@ -81,7 +94,7 @@ export const FilesTable = () => {
                   <LinkDialog link={item.link} />
                 </TableCell>
                 <TableCell>
-               <DownLoadFile item={item}/>
+                  <DownLoadFile item={item} />
                 </TableCell>
                 <TableCell onClick={() => removeFile(item.id)}>
                   <DeleteIcon style={{ color: "#1976d2" }} />
