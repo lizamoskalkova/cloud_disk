@@ -9,7 +9,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import {  useState } from "react";
+import { useState } from "react";
 import { LinkDialog } from "./LinkDialog";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { deleteFile } from "../store/fileSlice";
@@ -21,22 +21,9 @@ export const FilesTable = () => {
   const { fileFromDB } = useAppSelector((state) => state.files);
 
   const dispatch = useAppDispatch();
-  const [Data, setData] = useState<any[]>([]);
-
   const removeFile = (id: string) => {
     dispatch(deleteFile({ id }));
   };
-
-  const files = async () => {
-    const data = await supabaseClient.storage.from("files").list();
-    const farray = data.data;
-    if ( farray !== null) {
-      setData( farray);
-    }
-    console.log(Data)
-    return Data
-  };
-
 
   const getSize = (size: string) => {
     const numsize = parseInt(size);
