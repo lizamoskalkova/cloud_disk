@@ -3,7 +3,6 @@ import GetAppIcon from "@material-ui/icons/GetApp";
 
 export const DownLoadFile = ({ item }) => {
   const onDownload = () => {
-    console.log(item.name);
     fetch(item.link, {
       method: "GET",
     })
