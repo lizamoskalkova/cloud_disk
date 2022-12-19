@@ -59,7 +59,7 @@ interface IFilesState {
 
 const initialState: IFilesState = {
   fileArray: [],
-  fileFromDB: []
+  fileFromDB: [],
 };
 
 const filesSlice = createSlice({
@@ -92,7 +92,7 @@ const filesSlice = createSlice({
           state.fileFromDB.push({
             name: name,
             id: id,
-            lastModifiedDate: new Date(created_at)
+            lastModifiedDate: new Date(created_at),
           });
         });
       }
