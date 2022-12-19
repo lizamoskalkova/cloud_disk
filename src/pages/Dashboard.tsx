@@ -19,6 +19,7 @@ import { useAuth } from "./Auth";
 export const Dashboard = () => {
   const { user, signOut } = useAuth();
   const [file, setFile] = useState();
+  const [search, setSearch] = useState("");
   const dispatch = useAppDispatch();
   const { users } = useAppSelector((state) => state.users);
   const { fileArray } = useAppSelector((state) => state.files);
@@ -39,7 +40,7 @@ export const Dashboard = () => {
   }, [dispatch]);
 
   const navigate = useNavigate();
- /* const downloadFiles = async (event) => {
+  /* const downloadFiles = async (event) => {
     const { data, error } = await supabaseClient.storage
       .from("public/files")
       .download("222.png");
@@ -53,7 +54,7 @@ export const Dashboard = () => {
   }
 
   return (
-    <Box >
+    <Box>
       <AppBar
         position="static"
         sx={{
@@ -69,6 +70,8 @@ export const Dashboard = () => {
           </Typography>
           <Input
             placeholder="Search"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
             sx={{ background: "white", borderRadius: 1 }}
             type="search"
           />
@@ -85,7 +88,7 @@ export const Dashboard = () => {
         Upload File
         <input type="file" onChange={uploadFile} hidden />
       </Button>
-      <FilesTable />
+      <FilesTable searchQ={search} />
     </Box>
   );
 };

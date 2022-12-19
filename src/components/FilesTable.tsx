@@ -9,18 +9,29 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { useState } from "react";
+import {  useState } from "react";
 import { LinkDialog } from "./LinkDialog";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { deleteFile } from "../store/fileSlice";
 import { DownLoadFile } from "./DownLoadFile";
 import { supabaseClient } from "../api/Supabase";
 
-export const FilesTable = () => {
+export const FilesTable = ({searchQ}) => {
   const { fileArray } = useAppSelector((state) => state.files);
   const { fileFromDB } = useAppSelector((state) => state.files);
 
   const dispatch = useAppDispatch();
+
+  const getArray = () => {
+    if (searchQ !== null || undefined)
+    {
+      const newArray = fileArray.filter(val => val.name.includes(searchQ))
+      return newArray
+    }
+    else
+      return fileArray
+  }
+
   const removeFile = (id: string) => {
     dispatch(deleteFile({ id }));
   };
@@ -70,7 +81,7 @@ export const FilesTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {fileArray.map((item) => (
+            {getArray().map((item) => (
               <TableRow key={item.id}>
                 <TableCell>{item.name}</TableCell>
                 <TableCell>{getSize(item.size)}</TableCell>
